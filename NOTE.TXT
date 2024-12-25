@@ -1,0 +1,12 @@
+1. In env_setup.sh aggiungo:
+gdown https://drive.google.com/uc?id=1kzB230HvgxjCGycfM0KRd3Jv88RLAQ5U
+unzip ml-100k.zip
+
+2. In build_datasets.sh aggiungo:
+for dataset in ml1m lfm1m ml1k;
+
+3. In utils.py aggiungo:
+# Datasets
+ML1M = "ml1m"
+LFM1M = "lfm1m"
+ML1K = "ml1K"

@@ -12,13 +12,14 @@ File reading and os
 # Datasets
 ML1M = "ml1m"
 LFM1M = "lfm1m"
+ML1K = "ml1K"
 
 # For future
 CELL = "cell"
 BEAUTY = "beauty"
 CLOTH = "cloth"
 
-DATASETS = [ML1M, LFM1M]
+DATASETS = [ML1M, LFM1M, ML1K]
 DATASETS_WITH_WORDS = [CELL, BEAUTY, CLOTH]
 AMAZON_DATASETS = [CELL, BEAUTY, CLOTH]
 
@@ -34,6 +35,7 @@ WORD = 'word'
 MAIN_INTERACTION = {
     ML1M: "watched",
     LFM1M: "listened",
+    ML1K: "watched",
 }
 # Sensible attributes
 GENDER = "gender"
@@ -136,6 +138,7 @@ Mappings
 DATASET_SENSIBLE_ATTRIBUTE_MATRIX = {
     ML1M: {GENDER: 1, AGE: 1},
     LFM1M: {GENDER: 1, AGE: 1},
+    ML1K: {GENDER: 1, AGE: 1},
 }
 
 def get_dataset_id2model_kg_id(dataset_name, model_name, what="user"):

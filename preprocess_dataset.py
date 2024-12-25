@@ -11,6 +11,11 @@ def preprocess_ml1m(args):
     preprocess_users(dataset_name)
     preprocess_kg_ml1m(args)
 
+def preprocess_ml1k(args):
+    dataset_name = args.data
+    preprocess_users(dataset_name)
+    preprocess_kg_ml1m(args)
+
 def preprocess_lfm1m(args):
     perform_k_core(args)
     if args.preprocess_kg:
@@ -74,7 +79,7 @@ def preprocess_kg_ml1m(args):
     dataset_name = args.data
     dataset_raw_folder = get_raw_kg_dir(dataset_name)
     output_dir = get_data_dir(dataset_name)
-    if dataset_name == ML1M:
+    if dataset_name == ML1M|ML1K:
         relation2plain_name = { "http://dbpedia.org/ontology/cinematography": "cinematography_by_cinematographer",
                                 "http://dbpedia.org/property/productionCompanies": "produced_by_prodcompany",
                                 "http://dbpedia.org/property/composer": "composed_by_composer",
@@ -328,7 +333,7 @@ def remove_interactions_with_removed_product(interactions_filepath, interactions
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument('--data', type=str, default=LFM1M, help='One of {ML1M, LFM1M}')
+    parser.add_argument('--data', type=str, default=LFM1M, help='One of {ML1M, LFM1M, ML1K}')
     parser.add_argument('--k_user', type=int, default=10, help='threshold for discarding users with less than k interactions')
     parser.add_argument('--k_item', type=int, default=5, help='threshold for discarding items with less than k occurences')
     parser.add_argument('--preprocess_kg', type=bool, default=False, help='whether to preprocess kg or not')
@@ -341,6 +346,9 @@ def main():
         preprocess_kg_ml1m(args)
     if args.data == LFM1M:
         preprocess_kg_lfm1m(args)
+    if args.data == ML1K:
+        preprocess_ml1k(args)
+        preprocess_kg_ml1m(args)
     time_based_train_test_split(args.data, args.train_size, args.valid_size)
     preprocess_products(args.data)
     test_dataset_integrity(args.data)
